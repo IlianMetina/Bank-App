@@ -1,4 +1,4 @@
-package com.myapp.ms_accounts.model;
+package com.myapp.ms_cards.model;
 
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
@@ -13,14 +13,17 @@ import java.util.UUID;
 @Entity
 @Getter
 @Setter
-public class Customer {
+public class Card {
 
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Id
+    private UUID cardId;
     private UUID customerId;
-    private String firstName;
-    private String lastName;
-    private String email;
-    private String phoneNumber;
+    private Long cardNumber;
+    private CardType cardType;
+    private Long totalAmount;
+    private Long amountUsed;
+    private Long availableAmount;
     private LocalDateTime createDate;
+
 }

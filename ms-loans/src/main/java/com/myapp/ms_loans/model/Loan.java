@@ -1,6 +1,5 @@
-package com.myapp.ms_accounts.model;
+package com.myapp.ms_loans.model;
 
-import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
@@ -10,17 +9,19 @@ import lombok.Setter;
 import java.time.LocalDateTime;
 import java.util.UUID;
 
-@Entity
 @Getter
 @Setter
-public class Customer {
+public class Loan {
 
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Id
+    private Long loanNumber;
     private UUID customerId;
-    private String firstName;
-    private String lastName;
-    private String email;
-    private String phoneNumber;
+    private LocalDateTime startDate; // Date de prélèvement
+    private LoanType loanType;
+    private Long totalLoan;
+    private Long amountPaid;
+    private Long outstandingAmount;
     private LocalDateTime createDate;
+
 }
