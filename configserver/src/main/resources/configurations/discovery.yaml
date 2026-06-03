@@ -1,0 +1,20 @@
+spring:
+  application:
+    name: discovery
+
+eureka:
+  instance:
+    hostname: localhost
+  client:
+    registerWithEureka: false
+    fetchRegistry: false
+    serviceUrl:
+      defaultZone: http://localspring:
+  application:
+    name: ms-accounts
+  datasource:
+    url: jdbc:postgresql://localhost:5432/ms_accounts
+    username: root
+    password: root
+  config:
+    import: optional:configserver:http://localhost:8888host:8070/eureka/
