@@ -10,7 +10,7 @@ eureka:
 spring:
   datasource:
     url: jdbc:postgresql://localhost:5432/ms_loans
-    username: root
+    username: postgres
     password: root
   jpa:
     hibernate:
