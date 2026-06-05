@@ -44,5 +44,12 @@ public class CustomerService {
         customerToUpdate.setEmail(dto.getEmail());
         customerToUpdate.setPhoneNumber(dto.getPhoneNumber());
         customerToUpdate.setCreateDate(dto.getCreateDate());
+
+        return customerRepository.save(customerToUpdate);
+    }
+
+    public void deleteCustomerById(UUID customerId){
+        Customer customerToDelete = customerRepository.findById(customerId).orElseThrow(() -> new RuntimeException("Customer not found"));
+        customerRepository.delete(customerToDelete);
     }
 }
