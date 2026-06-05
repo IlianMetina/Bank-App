@@ -47,6 +47,4 @@ public class CardController {
     public void deleteAccount(@PathVariable UUID cardId){
         service.deleteCardById(cardId);
     }
-
-
 }
