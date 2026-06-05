@@ -1,7 +1,11 @@
 package com.myapp.ms_accounts.service;
 
+import com.myapp.ms_accounts.dto.CreateRequest;
+import com.myapp.ms_accounts.model.Account;
 import com.myapp.ms_accounts.repository.AccountRepository;
 import org.springframework.stereotype.Service;
+
+import java.util.List;
 
 @Service
 public class AccountService {
@@ -10,5 +14,24 @@ public class AccountService {
 
     public AccountService(AccountRepository accountRepository){
         this.accountRepository = accountRepository;
+    }
+
+    public List<Account> findAllAccounts(){
+        return accountRepository.findAll();
+    }
+
+    public Account findAccountById(Long accountNumber){
+        return accountRepository.findById(accountNumber);
+    }
+
+    public Account addAccount(CreateRequest dto){
+        Account account = new Account();
+        account.setCustomerId(dto.getCustomerId());
+        account.setCreateDate(dto.getCreateDate());
+        account.setAccountType(dto.getAccountType());
+        account.setBankAddress(dto.getBankAddress());
+        account.setCreateDate(dto.getCreateDate());
+
+        return accountRepository.save(account);
     }
 }

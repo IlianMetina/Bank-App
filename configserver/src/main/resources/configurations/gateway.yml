@@ -17,6 +17,10 @@ spring:
               uri: lb://ms-cards
               predicates:
                 - Path=/api/cards/**
+            - id: ms-loans
+              uri: lb://ms-loans
+              predicates:
+                - Path=/api/loans/**
 
 eureka:
   instance:

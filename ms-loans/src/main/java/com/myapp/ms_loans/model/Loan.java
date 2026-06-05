@@ -1,5 +1,6 @@
 package com.myapp.ms_loans.model;
 
+import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
@@ -11,6 +12,7 @@ import java.util.UUID;
 
 @Getter
 @Setter
+@Entity
 public class Loan {
 
     @GeneratedValue(strategy = GenerationType.IDENTITY)

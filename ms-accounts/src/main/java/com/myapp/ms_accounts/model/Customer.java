@@ -15,7 +15,7 @@ import java.util.UUID;
 @Setter
 public class Customer {
 
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @GeneratedValue(strategy = GenerationType.UUID)
     @Id
     private UUID customerId;
     private String firstName;
