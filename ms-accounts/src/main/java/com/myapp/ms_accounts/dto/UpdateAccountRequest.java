@@ -5,13 +5,11 @@ import lombok.Getter;
 import lombok.Setter;
 
 import java.time.LocalDateTime;
-import java.util.UUID;
 
 @Getter
 @Setter
-public class CreateRequest {
+public class UpdateAccountRequest {
 
-    private UUID customerId;
     private AccountType accountType;
     private String bankAddress;
     private LocalDateTime createDate;

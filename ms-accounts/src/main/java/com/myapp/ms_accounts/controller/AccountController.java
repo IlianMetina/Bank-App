@@ -1,7 +1,7 @@
 package com.myapp.ms_accounts.controller;
 
-import com.myapp.ms_accounts.dto.CreateRequest;
-import com.myapp.ms_accounts.dto.UpdateRequest;
+import com.myapp.ms_accounts.dto.CreateAccountRequest;
+import com.myapp.ms_accounts.dto.UpdateAccountRequest;
 import com.myapp.ms_accounts.model.Account;
 import com.myapp.ms_accounts.service.AccountService;
 import jakarta.validation.Valid;
@@ -31,13 +31,13 @@ public class AccountController {
     }
 
     @PostMapping("add")
-    public Account addAccount(@Valid @RequestBody CreateRequest dto, BindingResult result){
+    public Account addAccount(@Valid @RequestBody CreateAccountRequest dto, BindingResult result){
         if(result.hasErrors()) throw new RuntimeException("Invalid data");
         return accountService.addAccount(dto);
     }
 
     @PutMapping("update/{accountNumber}")
-    public Account updateAccount(@PathVariable Long accountNumber, @Valid @RequestBody UpdateRequest dto, BindingResult result){
+    public Account updateAccount(@PathVariable Long accountNumber, @Valid @RequestBody UpdateAccountRequest dto, BindingResult result){
         if(result.hasErrors()) throw new RuntimeException("Invalid data");
         return accountService.updateAccount(accountNumber, dto);
     }
