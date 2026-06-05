@@ -1,6 +1,7 @@
 package com.myapp.ms_accounts.service;
 
 import com.myapp.ms_accounts.dto.CreateRequest;
+import com.myapp.ms_accounts.dto.UpdateRequest;
 import com.myapp.ms_accounts.model.Account;
 import com.myapp.ms_accounts.repository.AccountRepository;
 import org.springframework.stereotype.Service;
@@ -33,5 +34,19 @@ public class AccountService {
         account.setCreateDate(dto.getCreateDate());
 
         return accountRepository.save(account);
+    }
+
+    public Account updateAccount(Long accountNumber, UpdateRequest dto){
+        Account accountToUpdate = accountRepository.findById(accountNumber);
+        accountToUpdate.setAccountType(dto.getAccountType());
+        accountToUpdate.setBankAddress(dto.getBankAddress());
+        accountToUpdate.setCreateDate(dto.getCreateDate());
+
+        return accountRepository.save(accountToUpdate);
+    }
+
+    public void deleteAccountById(Long accountNumber){
+        Account accountToDelete = accountRepository.findById(accountNumber);
+        accountRepository.delete(accountToDelete);
     }
 }

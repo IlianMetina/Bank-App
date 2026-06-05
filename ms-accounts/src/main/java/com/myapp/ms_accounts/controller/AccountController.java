@@ -1,6 +1,7 @@
 package com.myapp.ms_accounts.controller;
 
 import com.myapp.ms_accounts.dto.CreateRequest;
+import com.myapp.ms_accounts.dto.UpdateRequest;
 import com.myapp.ms_accounts.model.Account;
 import com.myapp.ms_accounts.service.AccountService;
 import jakarta.validation.Valid;
@@ -35,5 +36,15 @@ public class AccountController {
         return accountService.addAccount(dto);
     }
 
+    @PutMapping("update/{accountNumber}")
+    public Account updateAccount(@PathVariable Long accountNumber, @Valid @RequestBody UpdateRequest dto, BindingResult result){
+        if(result.hasErrors()) throw new RuntimeException("Invalid data");
+        return accountService.updateAccount(accountNumber, dto);
+    }
+
+    @DeleteMapping("delete/{accountNumber}")
+    public void deleteAccount(@PathVariable Long accountNumber){
+        accountService.deleteAccountById(accountNumber);
+    }
 
 }
