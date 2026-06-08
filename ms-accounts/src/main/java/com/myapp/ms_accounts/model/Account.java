@@ -1,9 +1,6 @@
 package com.myapp.ms_accounts.model;
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.EnumType;
-import jakarta.persistence.Enumerated;
-import jakarta.persistence.Id;
+import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -17,6 +14,7 @@ public class Account {
 
 
     @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long accountNumber;
     private UUID customerId;
     @Enumerated(EnumType.STRING)
