@@ -1,5 +1,6 @@
 package com.myapp.ms_loans.service;
 
+import com.myapp.ms_loans.client.AccountClient;
 import com.myapp.ms_loans.dto.CreateRequest;
 import com.myapp.ms_loans.dto.UpdateRequest;
 import com.myapp.ms_loans.model.Loan;
@@ -7,14 +8,17 @@ import com.myapp.ms_loans.repository.LoanRepository;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.UUID;
 
 @Service
 public class LoanService {
 
     private final LoanRepository repository;
+    private final AccountClient accountClient;
 
-    public LoanService(LoanRepository repository){
+    public LoanService(LoanRepository repository, AccountClient accountClient){
         this.repository = repository;
+        this.accountClient = accountClient;
     }
 
     public List<Loan> findAllLoans(){
@@ -26,6 +30,7 @@ public class LoanService {
     }
 
     public Loan addLoan(CreateRequest dto){
+
         Loan loan = new Loan();
         loan.setStartDate(dto.getStartDate());
         loan.setLoanType(dto.getLoanType());
@@ -51,5 +56,9 @@ public class LoanService {
 
     public void deleteLoanById(Long loanNumber){
         repository.deleteById(loanNumber);
+    }
+
+    public List<Loan> getLoansByCustomerId(UUID customerId){
+        return repository.findByCustomerId(customerId);
     }
 }

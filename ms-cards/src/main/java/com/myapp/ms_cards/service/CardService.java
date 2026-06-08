@@ -56,4 +56,8 @@ public class CardService {
         Card cardToDelete = repository.findById(cardId).orElseThrow(() -> new RuntimeException("Card not found"));
         repository.delete(cardToDelete);
     }
+
+    public List<Card> getCardsByCustomerId(UUID customerId) {
+        return repository.findByCustomerId(customerId);
+    }
 }

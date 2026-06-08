@@ -25,5 +25,4 @@ public class Loan {
     private Long amountPaid;
     private Long outstandingAmount;
     private LocalDateTime createDate;
-
 }

@@ -1,9 +1,6 @@
 package com.myapp.ms_accounts.controller;
 
-import com.myapp.ms_accounts.dto.CreateAccountRequest;
-import com.myapp.ms_accounts.dto.CreateCustomerRequest;
-import com.myapp.ms_accounts.dto.UpdateAccountRequest;
-import com.myapp.ms_accounts.dto.UpdateCustomerRequest;
+import com.myapp.ms_accounts.dto.*;
 import com.myapp.ms_accounts.model.Account;
 import com.myapp.ms_accounts.model.Customer;
 import com.myapp.ms_accounts.service.CustomerService;
@@ -29,8 +26,8 @@ public class CustomerController {
         return customerService.findAllCustomers();
     }
 
-    @GetMapping
-    public Customer findById(@RequestBody UUID customerId){
+    @GetMapping("/{customerId}")
+    public Customer findById(@PathVariable UUID customerId){
         return customerService.findCustomerById(customerId);
     }
 
@@ -40,14 +37,19 @@ public class CustomerController {
         return customerService.addCustomer(dto);
     }
 
-    @PutMapping("update/{accountNumber}")
-    public Account updateAccount(@PathVariable Long customerId, @Valid @RequestBody UpdateCustomerRequest dto, BindingResult result){
+    @PutMapping("update/{customerId}")
+    public Customer updateCustomer(@PathVariable UUID customerId, @Valid @RequestBody UpdateCustomerRequest dto, BindingResult result){
         if(result.hasErrors()) throw new RuntimeException("Invalid data");
         return customerService.updateCustomer(customerId, dto);
     }
 
-    @DeleteMapping("delete/{accountNumber}")
-    public void deleteAccount(@PathVariable Long customerId){
+    @DeleteMapping("delete/{customerId}")
+    public void deleteCustomer(@PathVariable UUID customerId){
         customerService.deleteCustomerById(customerId);
+    }
+
+    @GetMapping("{customerId}/profile")
+    public CustomerProfile getCustomerProfile(@PathVariable UUID customerId){
+        return customerService.getCustomerProfile(customerId);
     }
 }

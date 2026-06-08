@@ -48,4 +48,8 @@ public class LoanController {
         service.deleteLoanById(loanNumber);
     }
 
+    @GetMapping("customer/{customerId}")
+    public List<Loan> getLoansByCustomerId(@PathVariable UUID customerId){
+        return service.getLoansByCustomerId(customerId);
+    }
 }

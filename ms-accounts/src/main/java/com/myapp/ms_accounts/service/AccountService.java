@@ -7,6 +7,7 @@ import com.myapp.ms_accounts.repository.AccountRepository;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Optional;
 
 @Service
 public class AccountService {
@@ -22,7 +23,7 @@ public class AccountService {
     }
 
     public Account findAccountById(Long accountNumber){
-        return accountRepository.findById(accountNumber);
+        return accountRepository.findByAccountNumber(accountNumber).orElseThrow(() -> new RuntimeException("Account not found"));
     }
 
     public Account addAccount(CreateAccountRequest dto){
@@ -37,7 +38,7 @@ public class AccountService {
     }
 
     public Account updateAccount(Long accountNumber, UpdateAccountRequest dto){
-        Account accountToUpdate = accountRepository.findById(accountNumber);
+        Account accountToUpdate = accountRepository.findByAccountNumber(accountNumber).orElseThrow(() -> new RuntimeException("Account not found"));
         accountToUpdate.setAccountType(dto.getAccountType());
         accountToUpdate.setBankAddress(dto.getBankAddress());
         accountToUpdate.setCreateDate(dto.getCreateDate());
@@ -46,7 +47,7 @@ public class AccountService {
     }
 
     public void deleteAccountById(Long accountNumber){
-        Account accountToDelete = accountRepository.findById(accountNumber);
+        Account accountToDelete = accountRepository.findByAccountNumber(accountNumber).orElseThrow(() -> new RuntimeException("Account not found"));
         accountRepository.delete(accountToDelete);
     }
 }

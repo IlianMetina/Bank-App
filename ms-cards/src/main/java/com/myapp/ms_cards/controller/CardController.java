@@ -47,4 +47,9 @@ public class CardController {
     public void deleteAccount(@PathVariable UUID cardId){
         service.deleteCardById(cardId);
     }
+
+    @GetMapping("customer/{customerId}")
+    public List<Card> getCardsByCustomerId(@PathVariable UUID customerId){
+        return service.getCardsByCustomerId(customerId);
+    }
 }
