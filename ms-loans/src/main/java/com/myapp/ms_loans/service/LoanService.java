@@ -32,6 +32,7 @@ public class LoanService {
     public Loan addLoan(CreateRequest dto){
 
         Loan loan = new Loan();
+        loan.setCustomerId(dto.getCustomerId());
         loan.setStartDate(dto.getStartDate());
         loan.setLoanType(dto.getLoanType());
         loan.setTotalLoan(dto.getTotalLoan());

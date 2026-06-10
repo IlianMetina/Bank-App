@@ -4,10 +4,12 @@ server:
 spring:
   application:
     name: configserver
-  profiles:
-    active: native
   cloud:
     config:
       server:
-        native:
-          search-locations: classpath:/configurations
+        git:
+          uri: https://github.com/IlianMetina/BankApp-Config.git
+          clone-on-start: true
+          default-label: master
+          username: ${GIT_USERNAME}
+          password: ${GIT_TOKEN}

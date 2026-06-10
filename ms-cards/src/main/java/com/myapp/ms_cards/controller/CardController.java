@@ -26,8 +26,8 @@ public class CardController {
         return service.findAll();
     }
 
-    @GetMapping
-    public Card findById(@RequestBody UUID cardId){
+    @GetMapping("{cardId}")
+    public Card findById(@PathVariable UUID cardId){
         return service.findCardById(cardId);
     }
 
