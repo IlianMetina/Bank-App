@@ -8,8 +8,8 @@ spring:
     config:
       server:
         git:
-          uri: https://github.com/IlianMetina/BankApp-Config.git
-          clone-on-start: true
+          uri: git@github.com:IlianMetina/BankApp-Config.git
           default-label: master
-          username: ${GIT_USERNAME}
-          password: ${GIT_TOKEN}
+#          clone-on-start: true
+#          username: ${GIT_USERNAME}
+#          password: ${GIT_TOKEN}

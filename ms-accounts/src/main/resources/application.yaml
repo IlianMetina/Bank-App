@@ -3,3 +3,21 @@ spring:
     name: ms-accounts
   config:
     import: optional:configserver:http://localhost:8888
+
+management:
+  endpoints:
+    web:
+      exposure:
+        include: "*"
+
+ms-accounts:
+  name: MS Accounts MoNe
+  message: Welcome to MS Accounts Demo
+  build-version: 1.0.0
+  mail-details:
+    host-name: "accounts@contact.com"
+    port: 8054
+    from: "accounts@contact.com"
+  actives-branches:
+    - "main"
+    - "master"

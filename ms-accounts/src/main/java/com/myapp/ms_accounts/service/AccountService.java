@@ -3,6 +3,7 @@ package com.myapp.ms_accounts.service;
 import com.myapp.ms_accounts.dto.CreateAccountRequest;
 import com.myapp.ms_accounts.dto.UpdateAccountRequest;
 import com.myapp.ms_accounts.model.Account;
+import com.myapp.ms_accounts.model.Properties;
 import com.myapp.ms_accounts.repository.AccountRepository;
 import org.springframework.stereotype.Service;
 
