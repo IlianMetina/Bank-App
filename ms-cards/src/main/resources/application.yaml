@@ -3,3 +3,22 @@ spring:
     name: ms-cards
   config:
     import: optional:configserver:http://localhost:8888
+
+management:
+  endpoints:
+    web:
+      exposure:
+        include: "*"
+
+info:
+  app:
+    app-name: MS Cards Demo
+    message: Welcome to MS Cards Demo
+    build-version: 1.0.0
+    mail-details:
+      host-name: "cards@contact.com"
+      port: 8055
+      from: "cards@contact.com"
+    actives-branches:
+      - "main"
+      - "master"

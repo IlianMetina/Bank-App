@@ -17,7 +17,6 @@ public class CardService {
     public CardService(CardRepository repository){
         this.repository = repository;
     }
-
     public List<Card> findAll(){
         return repository.findAll();
     }

@@ -15,4 +15,9 @@ public class CustomerProfile {
     private Account account;
     private List<LoanResponse> loans;
     private List<CardResponse> cards;
+
+    private boolean cardsServiceAvailable;
+    private boolean loansServiceAvailable;
+
+    private List<String> warnings;
 }

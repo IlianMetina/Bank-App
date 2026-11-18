@@ -3,3 +3,25 @@ spring:
     name: ms-loans
   config:
     import: optional:configserver:http://localhost:8888
+
+management:
+  endpoints:
+    web:
+      exposure:
+        include: "*"
+  info:
+    env:
+      enabled: true
+
+info:
+  app:
+    app-name: MS Loans Demo
+    message: Welcome to MS Loans Demo
+    build-version: 1.0.0
+    mail-details:
+      host-name: "loans@contact.com"
+      port: 8056
+      from: "loans@contact.com"
+    actives-branches:
+      - "main"
+      - "master"

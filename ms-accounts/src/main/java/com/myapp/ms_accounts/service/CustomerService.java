@@ -7,10 +7,13 @@ import com.myapp.ms_accounts.model.Account;
 import com.myapp.ms_accounts.model.Customer;
 import com.myapp.ms_accounts.repository.AccountRepository;
 import com.myapp.ms_accounts.repository.CustomerRepository;
+import io.github.resilience4j.ratelimiter.annotation.RateLimiter;
+import io.github.resilience4j.retry.annotation.Retry;
+import lombok.extern.java.Log;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
-import java.util.List;
-import java.util.UUID;
+import java.util.*;
 
 @Service
 public class CustomerService {
@@ -19,6 +22,13 @@ public class CustomerService {
     private final AccountRepository accountRepository;
     private final LoansClient loansClient;
     private final CardsClient cardsClient;
+    private static final String ORDER_FALLBACK = "getCustomerProfileFallback";
+    private static final String RETRY_ORDER_SERVICE = "fallBackForLoans";
+    private static final String LOANS_SERVICE_RATE_LIMITER = "loansServiceRateLimiter";
+    private static final String FALLBACK_FOR_RATE_LIMITER = "fallbackForRateLimiter";
+    private static final String CARDS_SERVICE_RETRY = "cardsServiceRetry";
+    private static final String FALLBACK_FOR_LOANS = "fallbackForLoans";
+    private static final String FALLBACK_FOR_CARDS = "fallbackForCards";
 
     public CustomerService(CustomerRepository customerRepository, AccountRepository accountRepository, LoansClient loansClient, CardsClient cardsClient){
         this.customerRepository = customerRepository;
@@ -62,6 +72,8 @@ public class CustomerService {
         customerRepository.delete(customerToDelete);
     }
 
+    @Retry(name = RETRY_ORDER_SERVICE, fallbackMethod = ORDER_FALLBACK)
+    @RateLimiter(name = LOANS_SERVICE_RATE_LIMITER, fallbackMethod = FALLBACK_FOR_LOANS)
     public CustomerProfile getCustomerProfile(UUID customerId){
         Customer customer = customerRepository.findById(customerId).orElseThrow(() -> new RuntimeException("Customer not found"));
         Account account = accountRepository.findByCustomerId(customerId).orElseThrow(() -> new RuntimeException("Account not found"));
@@ -75,4 +87,27 @@ public class CustomerService {
         profile.setLoans(loans);
         return profile;
     }
+
+    public CustomerProfile getCustomerProfileFallback(UUID customerId){
+        Customer customer = customerRepository.findById(customerId).orElseThrow(() -> new RuntimeException("Customer not found"));
+        Account account = accountRepository.findByCustomerId(customerId).orElseThrow(() -> new RuntimeException("Account not found"));
+
+        List<String> warnings = new ArrayList<>();
+        CustomerProfile profile = new CustomerProfile();
+        if(profile.isCardsServiceAvailable()){
+            warnings.add(""); // ajouter les msg
+            warnings.add("");
+        }
+
+        profile.setCustomer(customer);
+        profile.setAccount(account);
+        profile.setCards(List.of());
+        profile.setLoans(List.of());
+        return profile;
+    }
+
+    public List<LoanResponse> fallBackForLoans(UUID customerId, Throwable throwable){
+        return Collections.emptyList();
+    }
+
 }
